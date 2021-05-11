@@ -1,11 +1,8 @@
-from conftest import names_list
 import pytest
 
 from src.section_one.names_db import NamesDB, DataAttributeError
 
 class TestNamesDB:
-    names = names_list
-
     def test_class_exists(self):
         """
         GIVEN a class name NamesDB
