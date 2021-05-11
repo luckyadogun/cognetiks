@@ -20,7 +20,7 @@ class TestNamesDB:
         names_db_obj = NamesDB(data=names_list)
         assert hasattr(names_db_obj, 'data')
 
-    def test_class_data_attr_is_array(self, names_list):
+    def test_class_data_attr_can_only_be_list_or_tuple(self, names_list):
         """
         GIVEN a non-list value to data attribute
         WHEN instance is created
@@ -42,9 +42,17 @@ class TestNamesDB:
 
         assert str(exc.value) == "<data> argument must not be empty"
 
-    def test_class_method_list_names_can_print_duplicates(self, names_list):
+    def test_class_method_list_names_displays_all_names(self, names_list):
         """
+        GIVEN data of len X with possible duplicates
+        WHEN the items in the data are printed
+        THEN the out must match the total length of data
         """
+        names_db_obj = NamesDB(data=names_list)
+        output = names_db_obj.list_names()
+
+        assert output == [f"Hello my name is {names}" for names in names_list]
+
 
     
             

@@ -19,3 +19,8 @@ pip install -r requirements.txt
 ```bash
 black $(find . -name '*.py')
 ```
+
+- Run the test suite
+```bash
+pytest -ssv
+```
