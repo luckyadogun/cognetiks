@@ -100,7 +100,7 @@ class TestNamesDB:
         self, names_db_obj
     ):
         """
-        GIVEN a list of positions
+        GIVEN a list of positions or direct position
         WHEN the method list_name_at_pos() is called with a list or int
         THEN an output of those items are printed residing at the data index
         """
@@ -116,3 +116,12 @@ class TestNamesDB:
 
         output_2 = names_db_obj.list_names_at_pos(4)
         assert output_2 == ["Sam"]
+
+    def test_class_method_reverse_list_names(self, names_db_obj, names_list):
+        """
+        GIVEN data of names during instantiation
+        WHEN the method reverse_list_names() is called
+        THEN the output is reversed
+        """
+        output = names_db_obj.reverse_list_names()
+        assert output == list(reversed(names_list))

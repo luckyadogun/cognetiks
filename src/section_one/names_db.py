@@ -57,3 +57,6 @@ class NamesDB:
                 ]
 
         return [self.data[pos - 1]]
+
+    def reverse_list_names(self):
+        return list(reversed(self.data))
