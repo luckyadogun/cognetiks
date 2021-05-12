@@ -22,5 +22,5 @@ black $(find . -name '*.py')
 
 - Run the test suite
 ```bash
-pytest -ssv or pytest tests/<section_name>/<test_name>
+pytest -ssv or pytest tests/<section_name>/<test_name.py>
 ```
