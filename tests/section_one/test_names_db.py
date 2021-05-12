@@ -63,7 +63,7 @@ class TestNamesDB:
         WHEN list_names() is called
         THEN the output must be a new-line formatted string of all names
         """
-        output = names_db_obj.list_names()
+        output = names_db_obj.list_names
 
         assert output == names_printed_dummy
 
@@ -125,3 +125,12 @@ class TestNamesDB:
         """
         output = names_db_obj.reverse_list_names()
         assert output == list(reversed(names_list))
+
+    def test_class_method_get_last_name(self, names_db_obj, names_list):
+        """
+        GIVEN data of names during instantiation
+        WHEN the property get_last_name is accessed
+        THEN the output is last item in the data
+        """
+        output = names_db_obj.get_last_name
+        assert output == names_list[-1]

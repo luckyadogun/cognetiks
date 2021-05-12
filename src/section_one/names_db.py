@@ -22,6 +22,7 @@ class NamesDB:
                 "<data> argument must not be empty"
             )
 
+    @property
     def list_names(self):
         for name in self.data:
             print(
@@ -60,3 +61,7 @@ class NamesDB:
 
     def reverse_list_names(self):
         return list(reversed(self.data))
+
+    @property
+    def get_last_name(self):
+        return self.data[-1]
