@@ -117,7 +117,9 @@ class TestNamesDB:
         output_2 = names_db_obj.list_names_at_pos(4)
         assert output_2 == ["Sam"]
 
-    def test_class_method_reverse_list_names(self, names_db_obj, names_list):
+    def test_class_method_reverse_list_names(
+        self, names_db_obj, names_list
+    ):
         """
         GIVEN data of names during instantiation
         WHEN the method reverse_list_names() is called
@@ -126,7 +128,9 @@ class TestNamesDB:
         output = names_db_obj.reverse_list_names()
         assert output == list(reversed(names_list))
 
-    def test_class_method_get_last_name(self, names_db_obj, names_list):
+    def test_class_method_get_last_name(
+        self, names_db_obj, names_list
+    ):
         """
         GIVEN data of names during instantiation
         WHEN the property get_last_name is accessed
