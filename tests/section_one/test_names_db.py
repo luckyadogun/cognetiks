@@ -1,6 +1,10 @@
 import pytest
 
-from src.section_one.names_db import NamesDB, DataAttributeError
+from src.section_one.names_db import (
+    NamesDB,
+    DataAttributeError,
+)
+
 
 class TestNamesDB:
     def test_class_exists(self):
@@ -9,18 +13,21 @@ class TestNamesDB:
         WHEN globals() is checked for its existence
         THEN NamesDB must exist in the global namespace
         """
-        assert 'NamesDB' in globals()
+        assert "NamesDB" in globals()
 
-    def test_class_has_attribute_called_data(self, names_list):
+    def test_class_has_attribute_called_data(
+        self, names_db_obj
+    ):
         """
         GIVEN an instance of the class
         WHEN hasattr(instance, 'attribute') is checked
         THEN the response == True
         """
-        names_db_obj = NamesDB(data=names_list)
-        assert hasattr(names_db_obj, 'data')
+        assert hasattr(names_db_obj, "data")
 
-    def test_class_data_attr_can_only_be_list_or_tuple(self, names_list):
+    def test_class_data_attr_can_only_be_list_or_tuple(
+        self,
+    ):
         """
         GIVEN a non-list value to data attribute
         WHEN instance is created
@@ -29,7 +36,10 @@ class TestNamesDB:
         with pytest.raises(DataAttributeError) as exc:
             names_db_obj = NamesDB(data="")
 
-        assert str(exc.value) == "<data> argument must be a <<list>> or <<tuple>> type"
+        assert (
+            str(exc.value)
+            == "<data> argument must be a <<list>> or <<tuple>> type"
+        )
 
     def test_class_data_cannot_be_empty(self):
         """
@@ -40,20 +50,69 @@ class TestNamesDB:
         with pytest.raises(DataAttributeError) as exc:
             names_db_obj = NamesDB(data=[])
 
-        assert str(exc.value) == "<data> argument must not be empty"
+        assert (
+            str(exc.value)
+            == "<data> argument must not be empty"
+        )
 
-    def test_class_method_list_names_displays_all_names(self, names_list):
+    def test_class_method_list_names_displays_all_names(
+        self, names_db_obj, names_printed_dummy
+    ):
         """
-        GIVEN data of len X with possible duplicates
-        WHEN the items in the data are printed
-        THEN the out must match the total length of data
+        GIVEN data of names
+        WHEN list_names() is called
+        THEN the output must be a new-line formatted string of all names
         """
-        names_db_obj = NamesDB(data=names_list)
         output = names_db_obj.list_names()
 
-        assert output == [f"Hello my name is {names}" for names in names_list]
+        assert output == names_printed_dummy
 
+    def test_class_method_list_names_at_pos_with_invalid_data(
+        self, names_db_obj
+    ):
+        """
+        GIVEN an invalid argument as position
+        WHEN the method list_name_at_pos() is called
+        THEN a DataAttributeError is raised with specific message
+        """
+        with pytest.raises(
+            DataAttributeError
+        ) as exc_empty_list:
+            output = names_db_obj.list_names_at_pos([])
 
-    
-            
+        with pytest.raises(
+            DataAttributeError
+        ) as exc_list_without_ints:
+            output = names_db_obj.list_names_at_pos(
+                ["*", "2", "abc"]
+            )
 
+        assert (
+            str(exc_empty_list.value)
+            == "<data> argument must not be empty"
+        )
+        assert (
+            str(exc_list_without_ints.value)
+            == "list <data> argument must a list of integers"
+        )
+
+    def test_class_method_list_names_at_pos(
+        self, names_db_obj
+    ):
+        """
+        GIVEN a list of positions
+        WHEN the method list_name_at_pos() is called with a list or int
+        THEN an output of those items are printed residing at the data index
+        """
+        output_1 = names_db_obj.list_names_at_pos(
+            [1, 3, 5, 7]
+        )
+        assert output_1 == [
+            "Alice",
+            "Jeremy",
+            "Henry",
+            "Ashley",
+        ]
+
+        output_2 = names_db_obj.list_names_at_pos(4)
+        assert output_2 == ["Sam"]
