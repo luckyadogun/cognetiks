@@ -13,7 +13,7 @@ def get_covid_data(url: str):
         return res.json()
 
 def convert_to_csv(data: json):
-    f_timestamp = f"""{datetime.datetime.now().strftime("%Y-%m-%d__%H:%M:%S")}.csv"""
+    f_timestamp = f"""{datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")}.csv"""
     if data is not None:
         df = pd.Series(data['data']).to_frame()
         file = df.to_csv(f_timestamp)
@@ -36,4 +36,4 @@ if __name__ == "__main__":
     obj = upload_to_s3(csv)
 
     url = f"https://{obj.bucket_name}.s3.amazonaws.com/{obj.key}"
-    print("Public URL", url)
+    print("Public URL:", url)
