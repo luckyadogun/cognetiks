@@ -24,3 +24,4 @@ black $(find . -name '*.py')
 ```bash
 pytest -ssv or pytest tests/<section_name>/<test_name.py>
 ```
+
