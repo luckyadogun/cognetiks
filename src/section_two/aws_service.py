@@ -30,7 +30,10 @@ def upload_to_s3(file):
 
 
 if __name__ == "__main__":
+
     json_data = get_covid_data(url="https://covidnigeria.herokuapp.com/api")
     csv = convert_to_csv(json_data)
     obj = upload_to_s3(csv)
-    print("Done..", obj)
+
+    url = f"https://{obj.bucket_name}.s3.amazonaws.com/{obj.key}"
+    print("Public URL", url)
